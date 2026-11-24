@@ -42,7 +42,7 @@
             <label for="Name">Name:</label>
             <input type="text" id="Name" name="Name" placeholder="Enter your full Name" required minlength="3"><br>
             <label for="Mobile">Mobile No:</label>
-            <input type="tel" id="Mobile" name="Mobile" placeholder="Enter your mobile no" min="1000000000" max="9999999999" required><br>
+            <input type="tel" id="Mobile" name="Mobile" placeholder="Enter your mobile no" pattern="[0-9]{10}" maxlength="10" required><br>
             Gender:
                 <label>
                     <input type="radio" name="gender" value="Male">Male
