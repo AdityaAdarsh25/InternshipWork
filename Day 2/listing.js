@@ -1,3 +1,5 @@
+let allEmployees=[]
+
 function loadEmployees(){
     fetch("https://jsonplaceholder.typicode.com/users")
     .then(response=>{
@@ -7,18 +9,8 @@ function loadEmployees(){
         return response.json();
     })
     .then(employees=>{
-        let output="";
-
-        employees.forEach(emp=>{
-            output+=`
-            <div>
-                <h3>${emp.name}</h3>
-                <p>${emp.email}</p>
-                <p>${emp.phone}</p>
-            </div>
-            `;
-        });
-        document.getElementById("employeeList").innerHTML = output;
+        allEmployees=employees;
+        displayEmployees(allEmployees);
     })
     .catch(error=>{
         alert("Error loading employees");
@@ -26,3 +18,28 @@ function loadEmployees(){
     });
 }
 
+function displayEmployees(employees){
+    let output="";
+    employees.forEach(emp=>{
+        output+=`
+            <div>
+                <h3>${emp.name}</h3>
+                <p>${emp.email}</p>
+                <p>${emp.phone}</p>
+            </div>
+            `;
+    });
+    document.getElementById("employeeList").innerHTML=output;
+}
+
+document.getElementById("searchBtn").addEventListener("click",()=>{
+    const query=document.getElementById("searchInput").value.trim().toLowerCase();
+    if(!query){
+        displayEmployees(allEmployees);
+    }
+    const filtered=allEmployees.filter(emp=>{
+        return emp.name.toLowerCase().includes(query)
+    });
+
+    displayEmployees(filtered);
+})
